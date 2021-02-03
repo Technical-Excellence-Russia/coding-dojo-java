@@ -51,7 +51,6 @@ public class StockPortfolioShould {
         verify(stockAccount).credit(10.0);
     }
 
-
     @Test
     void notGiveAbilityToSellUniqueStockOverItCount() throws StockIsNotExistException, NotEnoughMoneyException {
         stockPortfolio.purchase("IBM", 1);
@@ -61,13 +60,12 @@ public class StockPortfolioShould {
 
     }
 
-
     @Test
     void notGiveAbilityToSellNonExistentStock() {
         assertThrows(StockIsNotExistException.class, () -> stockPortfolio.sell("TESLA", 1));
         assertEquals(0, stockPortfolio.getStockCount("TESLA"));
 
-  }
+    }
 
     @Test
     void notGiveAbilityToPurchaseNonExistentStock() {
