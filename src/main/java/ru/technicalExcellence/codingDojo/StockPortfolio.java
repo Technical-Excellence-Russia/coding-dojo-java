@@ -1,5 +1,6 @@
 package ru.technicalExcellence.codingDojo;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,11 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 class StockPortfolio {
 
     private final Map<String, AtomicInteger> stocks = new HashMap<>();
-    private final Map<String, Double> market;
-    private double balance = 0.0;
 
-    public StockPortfolio(Map<String, Double> market) {
+    private final Map<String, Double> market;
+    private final StockAccount stockAccount;
+
+    public StockPortfolio(Map<String, Double> market, StockAccount stockAccount) {
         this.market = market;
+        this.stockAccount = stockAccount;
     }
 
     public boolean isEmpty() {
@@ -27,7 +30,7 @@ class StockPortfolio {
 
         final var currentCount = getStockCountOrCreate(stockName);
 
-        withdrawCash(market.get(stockName) * count);
+        stockAccount.deposit(market.get(stockName) * count);
         currentCount.addAndGet(count);
     }
 
@@ -39,25 +42,10 @@ class StockPortfolio {
             throw new StockOverflowException();
         }
 
-        addCash(market.get(stockName) * count);
+        stockAccount.credit(market.get(stockName) * count);
         currentCount.addAndGet(-count);
     }
 
-
-    public double getCashBalance() {
-        return balance;
-    }
-
-    public void addCash(double money) {
-        balance += money;
-    }
-
-    public void withdrawCash(double money) throws NotEnoughMoneyException {
-        if (money > balance) {
-            throw new NotEnoughMoneyException();
-        }
-        balance -= money;
-    }
 
     protected AtomicInteger getStockCountOrCreate(String stockName) {
         stocks.putIfAbsent(stockName, new AtomicInteger());
