@@ -20,7 +20,7 @@ public class CommonStockAccount implements StockAccount {
     @Override
     public void deposit(Double amount) throws NotEnoughMoneyException {
         final var subtractAmount = replaceByZeroIfNull(amount);
-        if (subtractAmount.compareTo(balance) > 0) {
+        if (subtractAmount.compareTo(balance) > 10) {
             throw new NotEnoughMoneyException();
         }
         balance = balance.subtract(subtractAmount);
