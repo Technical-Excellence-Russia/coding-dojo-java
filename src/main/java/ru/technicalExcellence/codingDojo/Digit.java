@@ -19,7 +19,7 @@ public class Digit extends AbstractDigit {
         if (STRING_2_DIGIT.containsKey(strValue)) {
             value = STRING_2_DIGIT.getOrDefault(strValue, null);
         } else {
-            value = Integer.valueOf(IntStream.range(0, (strValue.length() - DIGIT_HEIGHT - 1) / (DIGIT_HEIGHT * DIGIT_WIDTH)).mapToObj((i) -> String.valueOf(Digit.of(Arrays.stream(strValue.split(EOF)).map(l -> l.substring(i * DIGIT_WIDTH, (i + 1) * DIGIT_WIDTH)).collect(Collectors.joining(EOF))).value)).collect(Collectors.joining()));
+            value = Integer.valueOf(IntStream.range(0, (strValue.length() - DIGIT_HEIGHT + 1) / (DIGIT_HEIGHT * DIGIT_WIDTH)).mapToObj((i) -> String.valueOf(Digit.of(Arrays.stream(strValue.split(EOF)).map(l -> l.substring(i * DIGIT_WIDTH, (i + 1) * DIGIT_WIDTH)).collect(Collectors.joining(EOF))).value)).collect(Collectors.joining()));
         }
 
         if (value == null) {

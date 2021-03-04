@@ -30,7 +30,6 @@ public class DigitShould {
     @Test
     void throwExceptionWhenStringIsInvalid() {
         assertThrows(InputStringIsInvalidException.class, () -> Digit.of(""));
-        assertThrows(InputStringIsInvalidException.class, () -> Digit.of(10));
     }
 
     @ParameterizedTest
@@ -55,9 +54,11 @@ public class DigitShould {
                             "   | __| __||__||__ |__    ||__||__||  |\n" +
                             "   ||__  __|   | __||__|   ||__| __||__|";
 
+        final var expected = 1234567890;
+
         final var digit = Digit.of(arrange);
 
-        assertEquals(1234567890, digit.value());
+        assertEquals(expected, digit.value());
         assertEquals(arrange, digit.toString());
     }
 
@@ -65,9 +66,9 @@ public class DigitShould {
     void covertToStrings() throws InputStringIsInvalidException {
         final var arrange = 1234567890;
 
-        final var expected = "     __  __      __  __  __  __  __  __ \n" +
-                "   | __| __||__||__ |__    ||__||__||  |\n" +
-                "   ||__  __|   | __||__|   ||__| __||__|";
+        final var expected =    "     __  __      __  __  __  __  __  __ \n" +
+                                "   | __| __||__||__ |__    ||__||__||  |\n" +
+                                "   ||__  __|   | __||__|   ||__| __||__|";
 
         final var digit = Digit.of(arrange);
 
